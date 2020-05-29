@@ -27,10 +27,15 @@ class Item(object):
     def __repr__(self):
         return "Item({0!r})".format(self.name)
         # {0!r}의 의미는 무엇일까?
+        """
+            print(Item('test1'))
+            Item('test1')
+        """
 
 
 def test_priority_queue():
     q = PriorityQueue()
+    print(Item('test1'))
     q.push(Item('test1'), 1)
     print(q)
     q.push(Item('test2'), 4)
