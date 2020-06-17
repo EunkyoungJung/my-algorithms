@@ -1,6 +1,5 @@
 from my_node import Node
 
-
 class LinkedListLifo(object):
     def __init__(self):
         self.head = None
