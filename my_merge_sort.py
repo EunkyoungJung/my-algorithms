@@ -31,23 +31,24 @@ def my_merge_sort(seq):
     1) pop()을 이용한 병합 정렬
     """
     print(f"input seq: {seq}")
-    if len(seq) < 2:
+    if len(seq) < 2: # 이건 무슨 경우?!
         return seq
     mid = len(seq) // 2
     left, right = seq[:mid], seq[mid:]
     if len(left) > 1:
-        print(f"left : {left}")
         left = my_merge_sort(left)
     if len(right) > 1:
         right = my_merge_sort(right)
 
+    # left/right가 각각 1개씩이 되었을 때 밑에꺼를 실행
     res = []
+    print(f"while 전: {left}, {right},// {res}")
     while left and right:
         if left[-1] >= right[-1]:
-            print(f"res: {res}")
             res.append(left.pop())
         else:
             res.append(right.pop())
+    print(f"while 후: {left}, {right},// {res}")
     res.reverse()
     return (left or right) + res
 
