@@ -7,7 +7,7 @@
  => 두 파일인 경우에도 병합 가능한다.
 
  가) pop() 메서드를 사용하여 다음과 같이 구현할 수 있다.
-    (각 두 배열은 정렬되어 있다.)
+    (각 두 배열은 오름차순으로 정렬되어 있다.)
     def merge(left, right):
         if not left or not right: return left or right # 아무것도 병합하지 않는다.
         result = []
@@ -155,8 +155,8 @@ def merge_files(list_files):
 def test_merge_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
     seq_sorted = sorted(seq)
-    assert(merge_sort(seq)) == seq_sorted(seq)) # 1
-    assert(merge_sort_sep(seq) == seq_sorted)) # 2
+    assert(merge_sort(seq) == seq_sorted) # 1
+    assert(merge_sort_sep(seq) == seq_sorted) # 2
 
     l1 = [1, 2, 3, 4, 5, 6, 7]
     l2 = [2, 4, 5, 8]
@@ -175,5 +175,3 @@ def test_merge_sort():
 
 if __name__ == "__main__":
     test_merge_sort()
-
-            
