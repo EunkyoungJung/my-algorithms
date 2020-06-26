@@ -26,37 +26,37 @@
 """
 
 
-def my_merge_sort(seq):
+def merge_sort(seq):
     """
-    1) pop()을 이용한 병합 정렬
-    """
-    print(f"input seq: {seq}")
-    if len(seq) < 2: # 이건 무슨 경우?!
+    #     1) pop()을 이용한 병합 정렬
+    #     """
+    if len(seq) < 2:
         return seq
     mid = len(seq) // 2
     left, right = seq[:mid], seq[mid:]
     if len(left) > 1:
-        left = my_merge_sort(left)
+        left = merge_sort(left)
     if len(right) > 1:
-        right = my_merge_sort(right)
+        right = merge_sort(right)
 
-    # left/right가 각각 1개씩이 되었을 때 밑에꺼를 실행
+    # res를 계속 초기화하고 있음!
+    #     # 위의 결과로 얻은 left/right를 비교해서 정렬하는 용도임!
     res = []
-    print(f"while 전: {left}, {right},// {res}")
     while left and right:
-        # 원소가 각 1개씩인 left/right 중에 큰 값만 res에 집어 넣는 로직!
+        # left/right는 오름차순으로 정렬되어 있는 상황임
+        #         # 그러니, left/right의 마지막 원소는 left/right의 각 최대값임
+        #         # left/right읭 각 마지막 원소를 비교해서 큰 아이들을 res에 append함
         if left[-1] >= right[-1]:
             res.append(left.pop())
         else:
             res.append(right.pop())
-    print(f"while 후: {left}, {right},// {res}")
-    res.reverse()
+        res.reverse() # left/right 중에 큰거를 맨앞으로 되어 있어서 오름차순으로 하기위해 reverse!
     return (left or right) + res
 
 
 def test_merge_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
-    print(f"최종 결과: {my_merge_sort(seq)}")
+    print(f"최종 결과: {merge_sort(seq)}")
 
 
 
