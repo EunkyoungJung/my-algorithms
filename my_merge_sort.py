@@ -44,6 +44,7 @@ def my_merge_sort(seq):
     res = []
     print(f"while 전: {left}, {right},// {res}")
     while left and right:
+        # 원소가 각 1개씩인 left/right 중에 큰 값만 res에 집어 넣는 로직!
         if left[-1] >= right[-1]:
             res.append(left.pop())
         else:

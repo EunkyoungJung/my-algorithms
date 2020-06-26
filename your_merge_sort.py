@@ -52,14 +52,19 @@ def merge_sort(seq):
     if len(right) > 1:
         right = merge_sort(right)
 
+    # res를 계속 초기화하고 있음!
+    # 위의 결과로 얻은 left/right를 비교해서 정렬하는 용도임!
     res = []
     while left and right:
+        # left/right는 오름차순으로 정렬되어 있는 상황임
+        # 그러니, left/right의 마지막 원소는 left/right의 각 최대값임
+        # left/right읭 각 마지막 원소를 비교해서 큰 아이들을 res에 append함
         if left[-1] >= right[-1]:
             res.append(left.pop())
         else:
             res.append(right.pop())
-    res.reverse()
-    return (left or right) + res
+    res.reverse() # left/right 중에 큰거를 맨앞으로 되어 있어서 오름차순으로 하기위해 reverse!
+    return (left or right) + res # 오름차순으로 위에서 얻은 left/right를 정렬해서 반환함함
 
 
 def merge_sort_sep(seq):
