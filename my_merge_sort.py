@@ -26,10 +26,11 @@
 """
 
 
+"""
+1) pop()을 이용한 병합 정렬     
+"""
 def merge_sort(seq):
-    """
-    #     1) pop()을 이용한 병합 정렬
-    #     """
+
     if len(seq) < 2:
         return seq
     mid = len(seq) // 2
@@ -58,7 +59,12 @@ def test_merge_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
     print(f"최종 결과: {merge_sort(seq)}")
 
-
-
 if __name__ == "__main__":
     test_merge_sort()
+
+
+"""
+2) 두 함수로 나누어서 구현하는 방법
+   - 한 함수에서는 배열을 나누고,
+   - 또 다른 함수에는 배열을 병합한다  
+"""
