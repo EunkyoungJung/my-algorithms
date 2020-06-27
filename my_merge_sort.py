@@ -55,16 +55,53 @@ def merge_sort(seq):
     return (left or right) + res
 
 
-def test_merge_sort():
-    seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
-    print(f"최종 결과: {merge_sort(seq)}")
-
-if __name__ == "__main__":
-    test_merge_sort()
-
 
 """
 2) 두 함수로 나누어서 구현하는 방법
    - 한 함수에서는 배열을 나누고,
    - 또 다른 함수에는 배열을 병합한다  
 """
+
+
+def merge_sort_sep(seq):
+    # 원소가 1개일 경우!
+    if len(seq) < 2:
+        return seq
+    else:
+        mid = len(seq) // 2
+        # 계속 반으로 쪼갠다!
+        left = merge_sort_sep(seq[:mid])
+        right = merge_sort_sep(seq[mid:])
+        return merge(left, right)
+
+
+def merge(left, right):
+    # 반으로 쪼개고 쪼개서 처음에는 left/right에는 1개 이하의 원소들이 담기게되고
+    # 1개 이하의 원소들이 오름차순으로 정렬된 result를 반환한다
+    if not left or not right:
+        return left or right
+    result = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    if left[i:]:
+        result.extend(left[i:])
+    if right[j:]:
+        result.extend(right[j:])
+    return result
+
+
+def test_merge_sort():
+    seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    print(f"input: {seq}")
+    # print(f"최종 결과: {merge_sort(seq)}")
+    print(f"최종 결과: {merge_sort_sep(seq)}")
+
+
+if __name__ == "__main__":
+    test_merge_sort()
