@@ -94,15 +94,15 @@ def merge(left, right):
     return result
 
 
-def test_merge_sort():
-    seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
-    print(f"input: {seq}")
-    # print(f"최종 결과: {merge_sort(seq)}")
-    print(f"최종 결과: {merge_sort_sep(seq)}")
-
-
-if __name__ == "__main__":
-    test_merge_sort()
+# def test_merge_sort():
+#     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+#     print(f"input: {seq}")
+#     # print(f"최종 결과: {merge_sort(seq)}")
+#     print(f"최종 결과: {merge_sort_sep(seq)}")
+#
+#
+# if __name__ == "__main__":
+#     test_merge_sort()
 
 
 
@@ -123,17 +123,52 @@ def merge_2n(left, right):
     result.reverse()
     return (left or right) + result
 
-
+# def test_merge_sort():
+#     l1 = [1, 2, 3, 4, 5, 6, 7]
+#     l2 = [2, 4, 5, 8]
+#     print(f"l1: {l1} // l2: {l2}")
+#     print(f"최종 결과: {merge_2n(l1, l2)}")
+#
+#
+# if __name__ == "__main__":
+#     test_merge_sort()
 
 
 """
 4) 제자리 정렬로 구현한다
 """
-def merge_two_arrays_inplace(p1, p2):
-    pass
+def merge_two_arrays_inplace(l1, l2):
+    if not l1 or not l2:
+        return l1 or l2
+    p2 = len(l2) - 1
+    p1 = len(l1) - len(l2) - 1
+    p12 = len(l1) - 1
+    while p2 >= 0 and p1 >= 0:
+        item_to_be_merged = l2[p2]
+        item_bigger_array = l1[p1]
+        if item_to_be_merged < item_bigger_array:
+            l1[p12] = item_bigger_array
+            p1 -= 1
+        else:
+            l1[p12] = item_to_be_merged
+            p2 -= 1
+        p12 -= 1
+    return l1
 
-def merge_files(list_files):
-    pass
 
 def test_merge_sort():
+    l1 = [1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0]
+    l2 = [2, 4, 5, 8]
+    print(f"l1: {l1} // l2: {l2}")
+    print(f"최종 결과: {merge_two_arrays_inplace(l1, l2)}")
+
+
+if __name__ == "__main__":
+    test_merge_sort()
+
+
+"""
+5) 파일을 병합한다
+"""
+def merge_files(list_files):
     pass
