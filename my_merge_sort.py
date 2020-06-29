@@ -68,3 +68,27 @@ if __name__ == "__main__":
    - 한 함수에서는 배열을 나누고,
    - 또 다른 함수에는 배열을 병합한다  
 """
+def merg_sort_sep(seq):
+    if len(seq) < 2:
+        return seq
+    mid = len(seq) // 2
+    left = merge_sort_sep(seq[:mid])
+    right = merg_sort_sep(seq[mid:])
+
+
+
+"""
+3) 각 두 배열은 정렬된 상태다.
+시간복잡도는 O(2n)이다.
+"""
+def merge_2n(left, right):
+    if not left or not right:
+        return left or right
+    result = []
+    while left and right:
+        if left[-1] >= right[-1]:
+            result.append(left.pop())
+        else:
+            result.append(right.pop())
+    result.reverse()
+    return (left or right) + result
