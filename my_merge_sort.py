@@ -122,3 +122,18 @@ def merge_2n(left, right):
             result.append(right.pop())
     result.reverse()
     return (left or right) + result
+
+
+
+
+"""
+4) 제자리 정렬로 구현한다
+"""
+def merge_two_arrays_inplace(p1, p2):
+    pass
+
+def merge_files(list_files):
+    pass
+
+def test_merge_sort():
+    pass
