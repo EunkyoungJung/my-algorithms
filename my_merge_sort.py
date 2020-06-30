@@ -138,27 +138,48 @@ def merge_2n(left, right):
 4) 제자리 정렬로 구현한다
    가정: 정렬할 각 2개읠 배열은 각각 정렬된 상태이다.
 """
+# def merge_two_arrays_inplace(l1, l2):
+#     if not l1 or not l2:
+#         return l1 or l2
+#     p2 = len(l2) - 1 # l2의 마지막 원소의 인덱스
+#     p1 = len(l1) - len(l2) - 1 # 이것은 무엇을 위해 존재하는 변수일까? ['0'] 직전 인덱스
+#     p12 = len(l1) - 1 # l1의 마지막 원소의 인덱스
+#
+#     # l2의 원소가 1개 이상일 때! 그리고 l1이 l2보다 길때! 진행!
+#     print(f"이제 시작!!! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]}")
+#     while p2 >= 0 and p1 >= 0:
+#         print(f">> 진행중! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]} / p12: {p12} l1[p12]: {l1[p12]}")
+#         item_to_be_merged = l2[p2] # l2의 마지막 원소
+#         item_bigger_array = l1[p1] # l1에서 l2의 개수만큼의 ['0']을 제외한 마지막 원소
+#         if item_to_be_merged < item_bigger_array:
+#             l1[p12] = item_bigger_array
+#             p1 -= 1
+#         else:
+#             l1[p12] = item_to_be_merged
+#             p2 -= 1
+#         p12 -= 1
+#         print(f">>>> 진행중! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]} // l1: {l1} // l2: {l2}")
+#     return l1
+
+
 def merge_two_arrays_inplace(l1, l2):
     if not l1 or not l2:
         return l1 or l2
-    p2 = len(l2) - 1 # l2의 마지막 원소의 인덱스
-    p1 = len(l1) - len(l2) - 1 # 이것은 무엇을 위해 존재하는 변수일까? ['0'] 직전 인덱스
-    p12 = len(l1) - 1 # l1의 마지막 원소의 인덱스
 
-    # l2의 원소가 1개 이상일 때! 그리고 l1이 l2보다 길때! 진행!
-    print(f"이제 시작!!! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]}")
-    while p2 >= 0 and p1 >= 0:
-        print(f">> 진행중! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]} / p12: {p12} l1[p12]: {l1[p12]}")
-        item_to_be_merged = l2[p2] # l2의 마지막 원소
-        item_bigger_array = l1[p1] # l1에서 l2의 개수만큼의 ['0']을 제외한 마지막 원소
+    l1_current_item_index = len(l1) - len(l2) - 1
+    l2_current_item_index = len(l2) - 1
+    l1_current_merge_index = len(l1) - 1
+
+    while l2_current_item_index >= 0 and l1_current_merge_index >= 0:
+        item_to_be_merged = l2[l2_current_item_index]
+        item_bigger_array = l1[l1_current_item_index]
         if item_to_be_merged < item_bigger_array:
-            l1[p12] = item_bigger_array
-            p1 -= 1
+            l1[l1_current_merge_index] = item_bigger_array
+            l1_current_item_index -= 1
         else:
-            l1[p12] = item_to_be_merged
-            p2 -= 1
-        p12 -= 1
-        print(f">>>> 진행중! p2: {p2} l2[p2]: {l2[p2]} / p1: {p1} l1[p1]: {l1[p1]} / p12: {p12} l1[p12]: {l1[p12]} // l1: {l1} // l2: {l2}")
+            l1[l1_current_merge_index] = item_to_be_merged
+            l2_current_item_index -= 1
+        l1_current_merge_index -= 1
     return l1
 
 
