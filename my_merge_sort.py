@@ -30,7 +30,6 @@
 1) pop()을 이용한 병합 정렬     
 """
 def merge_sort(seq):
-
     if len(seq) < 2:
         return seq
     mid = len(seq) // 2
@@ -51,7 +50,7 @@ def merge_sort(seq):
             res.append(left.pop())
         else:
             res.append(right.pop())
-        res.reverse() # left/right 중에 큰거를 맨앞으로 되어 있어서 오름차순으로 하기위해 reverse!
+    res.reverse() # left/right 중에 큰거를 맨앞으로 되어 있어서 오름차순으로 하기위해 reverse!
     return (left or right) + res
 
 
@@ -183,19 +182,56 @@ def merge_two_arrays_inplace(l1, l2):
     return l1
 
 
-def test_merge_sort():
-    l1 = [1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0]
-    l2 = [2, 4, 5, 8]
-    print(f"l1: {l1} // l2: {l2}")
-    print(f"최종 결과: {merge_two_arrays_inplace(l1, l2)}")
-
-
-if __name__ == "__main__":
-    test_merge_sort()
+# def test_merge_sort():
+#     l1 = [1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0]
+#     l2 = [2, 4, 5, 8]
+#     print(f"l1: {l1} // l2: {l2}")
+#     print(f"최종 결과: {merge_two_arrays_inplace(l1, l2)}")
+#
+#
+# if __name__ == "__main__":
+#     test_merge_sort()
 
 
 """
 5) 파일을 병합한다
 """
 def merge_files(list_files):
-    pass
+    result = []
+    final = []
+    for filename in list_files:
+        aux = []
+        with open(filename, "r") as file:
+            for line in file:
+                aux.append(int(line))
+        result.append(aux)
+    final.extend(result.pop())
+    for l in result:
+        final = merge(l, final)
+    return final
+
+
+def test_merge_sort():
+    seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    seq_sorted = sorted(seq)
+    # print(seq_sorted, merge_sort(seq))
+    assert(merge_sort(seq) == seq_sorted)
+    assert(merge_sort_sep(seq) == seq_sorted)
+
+    l1 = [1, 2, 3, 4, 5, 6, 7]
+    l2 = [2, 4, 5, 8]
+    l_sorted = [1, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8]
+    assert(merge_2n(l1, l2) == l_sorted)
+
+    l1 = [1, 2, 3, 4, 5, 6, 7, 0, 0, 0, 0]
+    l2 = [2, 4, 5, 8]
+    l_sorted = [1, 2, 2, 3, 4, 4, 5, 5, 6, 7, 8]
+    assert(merge_two_arrays_inplace(l1, l2) == l_sorted)
+    list_files = ["a.dat", "b.dat", "c.dat"]
+    l_sorted = [1, 1, 2, 3, 3, 3, 4, 5, 5, 5, 6, 7, 8]
+    assert(merge_files(list_files) == l_sorted)
+    print("테스트 통과!")
+
+
+if __name__ == "__main__":
+    test_merge_sort()
