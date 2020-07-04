@@ -18,14 +18,27 @@ def quick_sort_cache(seq):
     """
     1) 한 함수로 구현 (캐시 사용)
     """
+    # if len(seq) < 2:
+    #     return seq
+    #
+    # print(f"seq: {seq}")
+    # pivot_index = len(seq) // 2 # 피벗 인덱스
+    # pivot_value = seq[pivot_index] # 피벗
+    # before = [x for i, x in enumerate(seq) if x <= pivot_value and i != pivot_index]
+    # after = [x for i, x in enumerate(seq) if x > pivot_value and i != pivot_index]
+    # print(f"before: {before} // seq[{pivot_index}]={pivot_value} // after: {after}")
+    #
+    # return quick_sort_cache(before) + [pivot_value] + quick_sort_cache(after)
+
     if len(seq) < 2:
         return seq
-    ipivot = len(seq) // 2 # 피벗 인덱스
-    pivot = seq[ipivot] # 피벗
+    else:
+        pivot_index = len(seq) // 2
+        pivot_value = seq[pivot_index]
+        smaller_than_pivot = [x for i,x in enumerate(seq) if x <= pivot_value and i != pivot_index]
+        bigger_than_pivot = [x for i,x in enumerate(seq) if x > pivot_value and i != pivot_index]
 
-    before = [x for i, x in enumerate(seq) if x <= pivot and i != ipivot]
-    after = [x for i, x in enumerate(seq) if x > pivot and i != ipivot]
-    return quick_sort_cache(before) + [pivot] + quick_sort_cache(after)
+        return quick_sort_cache(smaller_than_pivot) + [pivot_value] + quick_sort_cache(bigger_than_pivot)
 
 
 def partition_devided(seq):
@@ -80,8 +93,9 @@ def quick_sort(seq, start, end):
 def test_quick_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
     assert(quick_sort_cache(seq) == sorted(seq))
-    assert(quick_sort_chache_devided(seq) == sorted(seq))
-    assert(quick_sort(seq, 0, len(seq)-1) == sorted(seq))
+    print(f"quick_sort_cache: {quick_sort_cache(seq)} // sorted: {sorted(seq)}")
+    #assert(quick_sort_chache_devided(seq) == sorted(seq))
+    #assert(quick_sort(seq, 0, len(seq)-1) == sorted(seq))
     print("테스트 통과")
 
 
