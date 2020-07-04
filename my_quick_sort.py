@@ -49,29 +49,38 @@ def quick_sort_cache_devided(seq):
 
 ########## 퀵 정렬 구현#3 두 함수로 나누어서 구현 (캐시 사용 안함)
 def partition(seq, start, end):
-    pivot = seq[start]
-    left = start + 1
-    right = end
+    pivot_value = seq[start]
+    left_index = start + 1 # 피봇보다 1 큰 index
+    right_index = end # seq의 마지막 index
     done = False
+
     while not done:
-        while left <= right and seq[left] <= pivot:
-            left += 1
-        while left <= right and pivot < seq[right]:
-            right -= 1
-        if right < left:
+        while left_index <= right_index and seq[left_index] <= pivot_value:
+            # left index 계속 증가 pivot보다 작은 동안은!
+            left_index += 1
+        while left_index <= right_index and pivot_value < seq[right_index]:
+            # right index 계속 감소 pivot보다 큰 경우에는!
+            right_index -= 1
+        if right_index < left_index: # left의 값이 계속커져서 right보다 커진 순간! 즉! 정렬완료!
             done = True
         else:
-            seq[left], seq[right] = seq[right], seq[left]
-    seq[start], seq[right] = seq[right], seq[start]
-    # print(right, seq)
-    return right
+            # left보다 right의 index가 큰 경우
+            # 결론적으로는 seq[left]가 seq[right]보다 커서 서로 바꿔줌
+            # print(f"left_index: {left_index},{seq[left_index]} // right_index: {right_index},{seq[right_index]} // seq: {seq}")
+            seq[left_index], seq[right_index] = seq[right_index], seq[left_index]
+
+    # 정렬된 결과가 right는 pivot_index!
+    seq[start], seq[right_index] = seq[right_index], seq[start]
+    print(f"{seq} right_index: {right_index}, {start, seq[start]},  {right_index, seq[right_index]}")
+    return right_index
 
 
-def quick_sort(seq, start, end):
+def quick_sort_no_cache(seq, start, end):
+    # seq를 계속 input으로 넣어 변경함으로써 cache가 필요없어용
     if start < end:
         pivot = partition(seq, start, end)
-        quick_sort(seq, start, pivot - 1)
-        quick_sort(seq, pivot + 1, end)
+        quick_sort_no_cache(seq, start, pivot - 1) # pivot의 left를 리턴
+        quick_sort_no_cache(seq, pivot + 1, end) # pivot의 right를 리턴
     return seq
 
 
@@ -80,8 +89,9 @@ def test_quick_sort():
     # assert(quick_sort_cache(seq) == sorted(seq))
     # print(f"quick_sort_cache: {quick_sort_cache(seq)} // sorted: {sorted(seq)}")
     #assert(quick_sort_cache_devided(seq) == sorted(seq))
-    print(f"quick_sort_cache_devided: {quick_sort_cache_devided(seq)} // sorted: {sorted(seq)}")
+    # print(f"quick_sort_cache_devided: {quick_sort_cache_devided(seq)} // sorted: {sorted(seq)}")
     #assert(quick_sort(seq, 0, len(seq)-1) == sorted(seq))
+    # print(f"quick_sort_no_cache: {quick_sort_no_cache(seq, 0, len(seq)-1)} // sorted: {sorted(seq)}")
     print("테스트 통과")
 
 
