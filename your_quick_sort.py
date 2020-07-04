@@ -14,22 +14,8 @@
 """
 
 
+########## 퀵 정렬 구현#1: 한 함수로 구현 (캐시 사용)
 def quick_sort_cache(seq):
-    """
-    1) 한 함수로 구현 (캐시 사용)
-    """
-    # if len(seq) < 2:
-    #     return seq
-    #
-    # print(f"seq: {seq}")
-    # pivot_index = len(seq) // 2 # 피벗 인덱스
-    # pivot_value = seq[pivot_index] # 피벗
-    # before = [x for i, x in enumerate(seq) if x <= pivot_value and i != pivot_index]
-    # after = [x for i, x in enumerate(seq) if x > pivot_value and i != pivot_index]
-    # print(f"before: {before} // seq[{pivot_index}]={pivot_value} // after: {after}")
-    #
-    # return quick_sort_cache(before) + [pivot_value] + quick_sort_cache(after)
-
     if len(seq) < 2:
         return seq
     else:
@@ -41,10 +27,8 @@ def quick_sort_cache(seq):
         return quick_sort_cache(smaller_than_pivot) + [pivot_value] + quick_sort_cache(bigger_than_pivot)
 
 
+########## 퀵 정렬 구현#2: 퀵 정렬을 두 함수로 나누어 구현 (캐시 사용)
 def partition_devided(seq):
-    """
-    2) 1)의 퀵 정렬을 두 함수로 나누어 구현 (캐시 사용)
-    """
     pivot, seq = seq[0], seq[1:]
     before = []
     after = []
@@ -60,10 +44,8 @@ def quick_sort_chache_devided(seq):
     return quick_sort_chache_devided(before) + [pivot] + quick_sort_chache_devided(after)
 
 
+########## 퀵 정렬 구현#3 두 함수로 나누어서 구현 (캐시 사용 안함)
 def partition(seq, start, end):
-    """
-    3) 두 함수로 나누어서 구현한다 (캐시 사용 안함)
-    """
     pivot = seq[start]
     left = start + 1
     right = end
@@ -92,9 +74,10 @@ def quick_sort(seq, start, end):
 
 def test_quick_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
-    assert(quick_sort_cache(seq) == sorted(seq))
-    print(f"quick_sort_cache: {quick_sort_cache(seq)} // sorted: {sorted(seq)}")
+    # assert(quick_sort_cache(seq) == sorted(seq))
+    # print(f"quick_sort_cache: {quick_sort_cache(seq)} // sorted: {sorted(seq)}")
     #assert(quick_sort_chache_devided(seq) == sorted(seq))
+    print(f"quick_sort_cache_devided: {quick_sort_chache_devided(seq)} // sorted: {sorted(seq)}")
     #assert(quick_sort(seq, 0, len(seq)-1) == sorted(seq))
     print("테스트 통과")
 
