@@ -21,27 +21,30 @@ def quick_sort_cache(seq):
     else:
         pivot_index = len(seq) // 2
         pivot_value = seq[pivot_index]
-        smaller_than_pivot = [x for i,x in enumerate(seq) if x <= pivot_value and i != pivot_index]
-        bigger_than_pivot = [x for i,x in enumerate(seq) if x > pivot_value and i != pivot_index]
+        smaller_than_pivot = [x for i, x in enumerate(seq) if x <= pivot_value and i != pivot_index]
+        bigger_than_pivot = [x for i, x in enumerate(seq) if x > pivot_value and i != pivot_index]
 
         return quick_sort_cache(smaller_than_pivot) + [pivot_value] + quick_sort_cache(bigger_than_pivot)
 
 
 ########## 퀵 정렬 구현#2: 퀵 정렬을 두 함수로 나누어 구현 (캐시 사용)
 def partition_devided(seq):
-    pivot, seq = seq[0], seq[1:]
-    before = []
-    after = []
-    before = [x for x in seq if x <= pivot]
-    after = [x for x in seq if x > pivot]
-    return before, pivot, after
+    # seq의 첫번째 원소를 무조건 피봇으로!
+    # 비교 대상은 첫번째 원소를 제외한 나머지 원소를 대상!
+    pivot_value, *new_seq = seq
+    smaller_than_pivot, bigger_than_pivot = [], []
+    smaller_than_pivot = [x for x in new_seq if x <= pivot_value]
+    bigger_than_pivot = [x for x in new_seq if x > pivot_value]
+    return smaller_than_pivot, pivot_value, bigger_than_pivot
 
 
-def quick_sort_chache_devided(seq):
+def quick_sort_cache_devided(seq):
     if len(seq) < 2:
         return seq
-    before, pivot, after = partition_devided(seq)
-    return quick_sort_chache_devided(before) + [pivot] + quick_sort_chache_devided(after)
+    else:
+        # # seq를 피봇기준으로 나눈는 로직은 partion_devided 함수가 알아서!
+        smaller_than_pivot, pivot_value, bigger_than_pivot = partition_devided(seq)
+        return quick_sort_cache_devided(smaller_than_pivot) + [pivot_value] + quick_sort_cache_devided(bigger_than_pivot)
 
 
 ########## 퀵 정렬 구현#3 두 함수로 나누어서 구현 (캐시 사용 안함)
@@ -68,7 +71,7 @@ def quick_sort(seq, start, end):
     if start < end:
         pivot = partition(seq, start, end)
         quick_sort(seq, start, pivot - 1)
-        quick_sort(seq, pivot +1, end)
+        quick_sort(seq, pivot + 1, end)
     return seq
 
 
@@ -76,8 +79,8 @@ def test_quick_sort():
     seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
     # assert(quick_sort_cache(seq) == sorted(seq))
     # print(f"quick_sort_cache: {quick_sort_cache(seq)} // sorted: {sorted(seq)}")
-    #assert(quick_sort_chache_devided(seq) == sorted(seq))
-    print(f"quick_sort_cache_devided: {quick_sort_chache_devided(seq)} // sorted: {sorted(seq)}")
+    #assert(quick_sort_cache_devided(seq) == sorted(seq))
+    print(f"quick_sort_cache_devided: {quick_sort_cache_devided(seq)} // sorted: {sorted(seq)}")
     #assert(quick_sort(seq, 0, len(seq)-1) == sorted(seq))
     print("테스트 통과")
 
