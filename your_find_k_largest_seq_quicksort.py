@@ -5,31 +5,31 @@ def swap(seq, x, y):
     seq[x], seq[y] = seq[y], seq[x]
 
 
-def quick_select(seq, k, left=None, right=None):
-    left = left or 0 # left가 없을 경우 0
-    right = right or len(seq) - 1 # right가 없을 경우 seq의 마지막 원소의 인덱스
-    pivot_index = random.randint(left, right)
+def quick_select(seq, k, start=None, end=None):
+    start = start or 0 # start가 없을 경우 0
+    end = end or len(seq) - 1 # end가 없을 경우 seq의 마지막 원소의 인덱스
+    pivot_index = random.randint(start, end) # start부터 end 바로 전까지의 임의의 정수
     pivot_value = seq[pivot_index]
 
     # 피벗을 정렬 범위 밖으로 이동한다
-    swap(seq, pivot_index, right)
-    swapIndex, i = left, right
-    while i < right:
+    swap(seq, pivot_index, end)
+    swapIndex, i = start, end
+    while i < end:
         if seq[i] < pivot_value:
             swap(seq, i, swapIndex)
             swapIndex += 1
         i += 1
 
     # 피벗 위치를 확정한다
-    swap(seq, right, swapIndex)
+    swap(seq, end, swapIndex)
     # 피벗 위치를 확인한다
     rank = len(seq) - swapIndex
     if k == rank:
         return seq[swapIndex]
     elif k < rank:
-        return quick_select(seq, k, left=swapIndex+1, right=right)
+        return quick_select(seq, k, start=swapIndex + 1, end=end)
     else:
-        return quick_select(seq, k, left=left, right=swapIndex-1)
+        return quick_select(seq, k, start=start, end=swapIndex - 1)
 
 def find_k_largest_seq_quickselect(seq, k):
     # k번째로 큰 값을 찾는다.
