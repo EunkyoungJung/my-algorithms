@@ -37,7 +37,7 @@ def iterative_binary_search(seq: list, target: int):
     반복문 형태의 바이너리 서치
     :param seq: int 원소로 이루어진 오름차순으로 정렬된 리스트
     :param target: 리스트에서의 위치를 찾고자 하는 원소의 값
-    :return: list에서 target의 위치(index)를 리턴
+    :return: list에서 target의 마지막 위치(index)를 리턴
     """
     low_index, high_index = 0, len(seq)
     while low_index < high_index:

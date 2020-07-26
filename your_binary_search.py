@@ -34,7 +34,7 @@ def binary_search_iter(seq: list, target: int):
     반복문 형태의 이진 탐색
     :param seq: int로 이루어진 리스트
     :param target: int 원소
-    :return:
+    :return: target의 seq의 마지막 인덱스를 리턴
     """
     high_index, low_index = len(seq), 0
     while low_index < high_index:
@@ -49,10 +49,11 @@ def binary_search_iter(seq: list, target: int):
 
 
 def test_binary_search():
-    seq = [1, 2, 5, 6, 7, 10, 12, 12, 14, 15]
+    seq = [1, 2, 5, 6, 7, 10, 12, 12, 12, 14, 15]
     target = 6
     assert(binary_search_iter(seq, target) == 3)
     assert(binary_search_rec(seq, target, 0, len(seq)) == 3)
+    # print(binary_search_iter(seq, 12))
     print("테스트 통과!")
 
 
