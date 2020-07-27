@@ -42,19 +42,19 @@ def fib3(m, n):
 
 @benchmark
 def test_fib(n):
-    print(fib(n))
+    print(f"fib(n): {fib(n)}")
 
 
 @benchmark
 def test_fib2(n):
-    print(fib2(n))
+    print(f"fib2(n): {fib2(n)}")
 
 
 @benchmark
 def test_fib3(n):
     m = [0] * (n+1)
     m[0], m[1] = 1, 1
-    print(fib3(m, n))
+    print(f"fib3(m, n): {fib3(m, n)}")
 
 
 if __name__ == "__main__":
