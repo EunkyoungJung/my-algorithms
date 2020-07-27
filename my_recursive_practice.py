@@ -58,7 +58,18 @@ def recursive_even_odd_function(num: int):
 
 
 def make_sum_with_one_two_three(num: int):
-    pass
+    if num < 0:
+        return 0
+    if num == 0:
+        return 1
+    elif num == 1:
+        return 1
+    elif num == 2:
+        return 2
+    elif num == 3:
+        return 4
+
+    return make_sum_with_one_two_three(num - 1) + make_sum_with_one_two_three(num -2) + make_sum_with_one_two_three(num - 3)
 
 
 def test():
@@ -75,3 +86,4 @@ def test():
 
 if __name__ == "__main__":
     test()
+    make_sum_with_one_two_three(4)
