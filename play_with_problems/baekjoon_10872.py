@@ -13,7 +13,7 @@
 def calculate_factorial(number: int) -> int:
     """
     :param number: factiroal을 계산하고자 하는 숫자
-    :return: number!
+    :return: number! 결과
 
     >>> calculate_factorial(5)
     120
@@ -31,7 +31,7 @@ def calculate_factorial(number: int) -> int:
 
 
 def test_multiply_factorial():
-    assert(calculate_factorial(5) == (1*2*3*4*5))
+    assert(calculate_factorial(5) == (1 * 2 * 3 * 4 * 5))
     assert (calculate_factorial(10) == (1 * 2 * 3 * 4 * 5 * 6 * 7 * 8 * 9 * 10))
     print("테스트 통과!")
 
