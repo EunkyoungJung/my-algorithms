@@ -1,4 +1,4 @@
-from your_binary_search import binary_search_iter
+from your_algorithms.your_binary_search import binary_search_iter
 
 
 def find_time_occurrence_list(seq, k) -> int:

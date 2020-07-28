@@ -1,4 +1,4 @@
-from my_binary_search import iterative_binary_search
+from my_algorithms.my_binary_search import iterative_binary_search
 
 
 def count_ordered_list(seq, key) -> int:

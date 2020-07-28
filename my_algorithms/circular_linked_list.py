@@ -1,5 +1,5 @@
-from my_fifo_linked_list import LinkedListFifo
-from my_node import Node
+from my_algorithms.my_fifo_linked_list import LinkedListFifo
+from my_algorithms.my_node import Node
 
 
 class CircularLinkedListFifo(LinkedListFifo):

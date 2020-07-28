@@ -1,4 +1,4 @@
-from my_stack import Stack
+from my_algorithms.my_stack import Stack
 
 
 class NodeWithMin(object):

@@ -1,4 +1,4 @@
-from my_queue import Queue
+from my_algorithms.my_queue import Queue
 
 """
 Deque(데크) : 스택 + 큐

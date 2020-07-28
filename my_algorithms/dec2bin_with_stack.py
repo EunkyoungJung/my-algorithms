@@ -1,4 +1,4 @@
-from my_stack import Stack
+from my_algorithms.my_stack import Stack
 
 
 def dec2bin_with_stack(decnum):

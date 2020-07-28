@@ -1,7 +1,7 @@
 import string
 import collections
 
-from my_deque import Deque
+from my_algorithms.my_deque import Deque
 
 STRIP = string.whitespace + string.punctuation + "\"'"
 

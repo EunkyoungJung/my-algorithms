@@ -5,7 +5,7 @@
 
 
 from functools import wraps
-from your_benchmark import benchmark
+from your_algorithms.your_benchmark import benchmark
 
 
 def memo(func):

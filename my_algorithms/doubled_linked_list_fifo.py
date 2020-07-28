@@ -5,7 +5,7 @@
 하나는 뒤 노드를 가리킨다.
 """
 
-from my_fifo_linked_list import LinkedListFifo
+from my_algorithms.my_fifo_linked_list import LinkedListFifo
 
 
 class DNode(object):
@@ -60,7 +60,6 @@ class DLinkedList(LinkedListFifo):
 
 
 if __name__ == "__main__":
-    from collections import Counter
 
     ll = DLinkedList()
     for i in range(1, 5):

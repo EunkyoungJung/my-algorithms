@@ -1,4 +1,4 @@
-from my_node import Node
+from my_algorithms.my_node import Node
 
 class LinkedListLifo(object):
     def __init__(self):

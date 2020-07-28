@@ -14,7 +14,7 @@
 각 작업의 시간복잡도는 O(n)이다.
 """
 
-from my_fifo_linked_list import LinkedListFifo
+from my_algorithms.my_fifo_linked_list import LinkedListFifo
 
 
 class HashTableLL(object):

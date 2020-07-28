@@ -2,8 +2,8 @@
 연결리스트가 회문인지 확인해보는 코드
 """
 
-from my_fifo_linked_list import LinkedListFifo
-from my_node import Node
+from my_algorithms.my_fifo_linked_list import LinkedListFifo
+
 
 def isPal(l1):
     if l1 < 2:
