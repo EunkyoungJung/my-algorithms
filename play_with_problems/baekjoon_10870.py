@@ -29,7 +29,7 @@ def find_last_fib(number: int) -> int:
     if number == 1:
         return 1
 
-    for i in range(2, number+1):
+    for i in range(2, number + 1):
         fib_list.append(fib_list[-1] + fib_list[-2])
     return fib_list[-1]
 
