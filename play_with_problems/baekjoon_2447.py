@@ -33,4 +33,3 @@ def print_recursive_stars(number: int) -> None:
 if __name__ == "__main__":
     import doctest
     doctest.testmode()
-
