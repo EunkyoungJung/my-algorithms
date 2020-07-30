@@ -30,6 +30,30 @@ def print_recursive_stars(number: int) -> None:
     pass
 
 
+def blank(t, x, y):
+    if t == 1: return
+
+    sx, ex = x + t//3, x + (t//3)*2
+    sy, ey = y + t//3, y + (t//3)*2
+    for i in range(sx, ex):
+        for j in range(sy, ey):
+            table[i][j] = ' '
+
+    blank(t//3, x, y)
+    blank(t//3, sx, y)
+    blank(t//3, ex, y)
+    blank(t//3, x, sy)
+    blank(t//3, ex, sy)
+    blank(t//3, x, ey)
+    blank(t//3, sx, ey)
+    blank(t//3, ex, sy)
+
+
 if __name__ == "__main__":
-    import doctest
-    doctest.testmode()
+    # import doctest
+    # doctest.testmode()
+    n = int(input('Enter Number : '))
+    table = [['*'] * n for _ in range(n)]
+    blank(n, 0, 0)
+    for t in table:
+        print(''.join(t))
