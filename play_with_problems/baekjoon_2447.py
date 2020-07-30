@@ -17,20 +17,30 @@ N이 3보다 클 경우, 크기 N의 패턴은 공백으로 채워진 가운데�
 """
 
 
-def print_recursive_stars(number: int) -> None:
+# def print_recursive_stars(number: int) -> None:
+#     """
+#     :param number: int
+#     :return: None
+#
+#     >>> print_recursive_stars(3)
+#     ***
+#     * *
+#     ***
+#     """
+#     pass
+
+
+def blank(t: int, x: int, y: int, table: list) -> None:
     """
-    :param number: int
-    :return: None
+    :param t:
+    :param x:
+    :param y:
+    :param table:
+    :return:
 
-    >>> print_recursive_stars(3)
-    ***
-    * *
-    ***
+    >>> blank(3, 0, 0, [['*'] * 3 for _ in range(3)])
+    [['*', '*', '*'], ['*', ' ', '*'], ['*', '*', '*']]
     """
-    pass
-
-
-def blank(t, x, y):
     if t == 1: return
 
     sx, ex = x + t//3, x + (t//3)*2
@@ -39,21 +49,24 @@ def blank(t, x, y):
         for j in range(sy, ey):
             table[i][j] = ' '
 
-    blank(t//3, x, y)
-    blank(t//3, sx, y)
-    blank(t//3, ex, y)
-    blank(t//3, x, sy)
-    blank(t//3, ex, sy)
-    blank(t//3, x, ey)
-    blank(t//3, sx, ey)
-    blank(t//3, ex, sy)
+    blank(t//3, x, y, table)
+    blank(t//3, sx, y, table)
+    blank(t//3, ex, y, table)
+    blank(t//3, x, sy, table)
+    blank(t//3, ex, sy, table)
+    blank(t//3, x, ey, table)
+    blank(t//3, sx, ey, table)
+    blank(t//3, ex, sy, table)
+    return table
 
 
 if __name__ == "__main__":
-    # import doctest
-    # doctest.testmode()
+    import doctest
+    doctest.testmod()
     n = int(input('Enter Number : '))
     table = [['*'] * n for _ in range(n)]
-    blank(n, 0, 0)
+    table = blank(n, 0, 0, table)
+    # print(table)
+
     for t in table:
         print(''.join(t))
