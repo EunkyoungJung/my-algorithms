@@ -7,7 +7,8 @@
 
 class BunchClass(dict):
     def __init__(self, *args, **kwargs):
-        super(BunchClass, self).__init__(*args, **kwargs) # BunchClass에서 상속받은 __init__을 오버라이딩
+        # BunchClass에서 상속받은 __init__을 오버라이딩
+        super(BunchClass, self).__init__(*args, **kwargs)
         self.__dict__ = self
 
 
