@@ -84,7 +84,7 @@ class NodeBT(object):
 
         return False
 
-    def _is_bst(self, left=None, right=None):
+    def _is_binary_search_tree(self, left=None, right=None):
         # 이진 탐색 트리인지 확인한다. - O(n)
         if self.value:
             if left and self.value < left:
@@ -94,9 +94,9 @@ class NodeBT(object):
 
             l, r = True, True
             if self.left:
-                l = self.left._is_bst(left, self.value)
+                l = self.left._is_binary_search_tree(left, self.value)
             if self.right:
-                r = self.right._is_bst(self.value, left)
+                r = self.right._is_binary_search_tree(self.value, left)
             return l and r
         else:
             return True
@@ -135,8 +135,8 @@ class BinaryTree(object):
     def is_balanced(self):
         return self.root._is_balanced()
 
-    def is_bst(self):
-        return self.root._is_bst()
+    def is_binary_search_tree(self):
+        return self.root._is_binary_search_tree()
 
 
 if __name__ == "__main__":
@@ -148,7 +148,7 @@ if __name__ == "__main__":
     print(f"{bt.is_root(10)}")
     print(f"{bt.is_root(1)}")
     print(f"{bt.get_height()}")
-    print(f"{bt.is_bst()}")
+    print(f"{bt.is_binary_search_tree()}")
     print(f"{bt.is_balanced()}")
 
 

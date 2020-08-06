@@ -61,5 +61,5 @@ if __name__ == "__main__":
     print(f"{bst.is_root(10)}")
     print(f"{bst.is_root(1)}")
     print(f"{bst.get_height()}")
-    print(f"{bst.is_bst()}")
+    print(f"{bst.is_binary_search_tree()}")
     print(f"{bst.is_balanced()}")
