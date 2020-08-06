@@ -7,6 +7,8 @@
 """
 
 import doctest
+import random
+import datetime
 
 def my_binary_search_func(data_list: list, find_data: int) -> bool:
     """
@@ -45,6 +47,11 @@ def my_binary_search_func(data_list: list, find_data: int) -> bool:
 
 if __name__ == "__main__":
     doctest.testmod()
-    data_list = [1, 2, 3, 4]
-    find_data = data_list[0]
-    print(my_binary_search_func(data_list, find_data))
+    data_list = random.sample(range(10000000), 100000)
+    data_list.sort()
+    # print(datetime.datetime.now())
+    start_time = datetime.datetime.now()
+    my_binary_search_func(data_list, 11)
+    end_time = datetime.datetime.now()
+    print(f"end_time -start_time = {end_time} - {start_time} = {end_time - start_time}")
+    # print(datetime.datetime.now())
