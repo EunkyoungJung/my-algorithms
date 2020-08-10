@@ -20,23 +20,22 @@ class Queue(object):
 
     def __init__(self):
         self.items = []
-        self.count = 0
 
     def enqueue(self, item):
-        self.items.append(item)
-        self.count += 1
+        # 배열의 마지막 [-1]은 항상 가장 오래된 원소가 되도록
+        # 배열의 0번 인덱스에다가 새로운 원소를 넣어줌
+        self.items.insert(0, item)
 
     def dequeue(self):
-        self.count -= 1
-        return self.items.pop(0)
+        if self.items:
+            return self.items.pop()
+        return print("Queue is empty")
 
     def peek(self):
-        return self.items[0] if self.items else print("Queue is empty.")
+        return self.items[-1] if self.items else print("Queue is empty.")
 
     def is_empty(self):
-        if self.items and self.count > 0:
-            return False
-        return True
+        return False if self.items else True
 
     def size(self):
         return len(self.items)
