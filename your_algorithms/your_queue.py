@@ -4,6 +4,7 @@ Queue
 - 먼저 들어온 데이터가 먼저 나가는 선입선출(FIFO: First in, First out) 구조
 - 배열의 인덱스 접근이 제한 됨
 - 시간 복잡도 O(1)
+- 너비 우선 탐색(BFS)에서 사용됨
 
 enqueue
 dequeue
@@ -87,6 +88,55 @@ class QueueWithTwoArrays(object):
             print("Queue is empty.")
 
 
+class Node(object):
+    def __init__(self, value=None, pointer=None):
+        self.value = value
+        self.pointer = pointer
+
+
+class LinkedQueue(object):
+    def __init__(self):
+        self.head = None
+        self.tail = None
+        self.count = 0
+
+    def is_empty(self):
+        return False if self.count > 0 and self.head else True
+
+    def enqueue(self, item):
+        new_item = Node(item)
+        if not self.head:
+            self.head = new_item
+            self.tail = new_item
+        else:
+            if self.tail:
+                self.tail.pointer = new_item
+            self.tail = new_item
+        self.count += 1
+
+    def dequeue(self):
+        if self.head:
+            value = self.head.value
+            self.head = self.head.pointer
+            self.count -= 1
+            return value
+        else:
+            print("Queue is empty.")
+
+    def size(self):
+        return self.count
+
+    def peek(self):
+        return self.head.value
+
+    def print(self):
+        node = self.head
+        while node:
+            print(node.value, end=" ")
+            node = node.pointer
+        print()
+
+
 def test_queue_with_single_array():
     q = QueueWithSingleArray()
     assert(q.is_empty() is True)
@@ -111,14 +161,30 @@ def test_queue_with_two_arrays():
     assert(q.peek() == 1)
 
 
+def test_linked_queue():
+    q = LinkedQueue()
+    assert(q.is_empty() is True)
+    for i in range(10):
+        q.enqueue(i)
+    assert(q.size() == 10)
+    assert(q.peek() == 0)
+    assert(q.dequeue() == 0)
+    assert(q.size() == 9)
+    assert(q.peek() == 1)
+
+
 if __name__ == "__main__":
     test_queue_with_single_array()
     test_queue_with_two_arrays()
+    test_linked_queue()
 
     q1 = QueueWithSingleArray()
     q2 = QueueWithTwoArrays()
+    q3 = LinkedQueue()
     for i in range(10):
         q1.enqueue(i)
         q2.enqueue(i)
+        q3.enqueue(i)
     print(q1)
     print(q2)
+    q3.print()
