@@ -13,7 +13,7 @@ size
 """
 
 
-class Queue(object):
+class QueueWithSingleArray(object):
     """
     queue 클래스 구현
     """
@@ -44,8 +44,63 @@ class Queue(object):
         return repr(self.items)
 
 
-def test_queue():
-    q = Queue()
+class QueueWithTwoArrays(object):
+    def __init__(self):
+        self.in_stack = []
+        self.out_stack = []
+
+    def _transfer(self):
+        while self.in_stack:
+            self.out_stack.append(self.in_stack.pop())
+
+    def enqueue(self, item):
+        return self.in_stack.append(item)
+
+    def dequeue(self):
+        if not self.out_stack:
+            self._transfer()
+        if self.out_stack:
+            return self.out_stack.pop()
+        else:
+            print("Queue is empty.")
+
+    def is_empty(self):
+        return False if self.in_stack or self.out_stack else True
+
+    def size(self):
+        return len(self.in_stack) + len(self.out_stack)
+
+    def peek(self):
+        if not self.out_stack:
+            self._transfer()
+        if self.out_stack:
+            return self.out_stack[-1]
+        else:
+            print("Queue is empty.")
+
+    def __repr__(self):
+        if not self.out_stack:
+            self._transfer()
+        if self.out_stack:
+            return repr(self.out_stack)
+        else:
+            print("Queue is empty.")
+
+
+def test_queue_with_single_array():
+    q = QueueWithSingleArray()
+    assert(q.is_empty() is True)
+    for i in range(10):
+        q.enqueue(i)
+    assert(q.size() == 10)
+    assert(q.peek() == 0)
+    assert(q.dequeue() == 0)
+    assert(q.size() == 9)
+    assert(q.peek() == 1)
+
+
+def test_queue_with_two_arrays():
+    q = QueueWithTwoArrays()
     assert(q.is_empty() is True)
     for i in range(10):
         q.enqueue(i)
@@ -57,8 +112,13 @@ def test_queue():
 
 
 if __name__ == "__main__":
-    test_queue()
-    q = Queue()
+    test_queue_with_single_array()
+    test_queue_with_two_arrays()
+
+    q1 = QueueWithSingleArray()
+    q2 = QueueWithTwoArrays()
     for i in range(10):
-        q.enqueue(i)
-    print(q)
+        q1.enqueue(i)
+        q2.enqueue(i)
+    print(q1)
+    print(q2)
