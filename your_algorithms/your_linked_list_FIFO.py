@@ -95,7 +95,7 @@ class LinkedListFIFO(object):
         if not self.head or not self.head.pointer:
             self._deleteFirst()
         else:
-            node, prev, i = self._find_by_value()
+            node, prev, i = self._find_by_value(value)
             if node and node.value == value:
                 self.length -= 1
                 if i == 0 or not prev:
