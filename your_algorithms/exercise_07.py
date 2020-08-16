@@ -130,8 +130,32 @@ def balance_partner_string_with_stack(data: str) -> bool:
     return True if balanced and s.is_empty() else False
 
 
+def convert_decimal_into_binary_with_stack(decimal_number: int) -> str:
+    """
+    :param decimal_number: 십진수 숫자
+    :return: 십진수를 이진수로 변환한 문자열
+    >>> convert_decimal_into_binary_with_stack(1)
+    '1'
+    >>> convert_decimal_into_binary_with_stack(5)
+    '101'
+    """
+    s = Stack()
+    str_aux = ""
+
+    while decimal_number > 0:
+        leftover = decimal_number % 2 # 나머지
+        decimal_number = decimal_number // 2 #
+        s.push(leftover)
+
+    while not s.is_empty():
+        str_aux += str(s.pop())
+
+    return str_aux
+
+
 if __name__ == "__main__":
     doctest.testmod()
     reverse_string_with_stack("abc")
+    convert_decimal_into_binary_with_stack(9)
 
 
