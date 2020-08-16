@@ -104,6 +104,32 @@ def reverse_string_with_stack(line: str) -> str:
     return reversed_string
 
 
+def balance_partner_string_with_stack(data: str) -> bool:
+    """
+    :param data: 괄호( '(', ')' )로 이루어진 문자열
+    :return: 입력된 괄호가 균형이면 True 리턴 아니면 False 리턴
+    >>> balance_partner_string_with_stack("((()))")
+    True
+    >>> balance_partner_string_with_stack('(()')
+    False
+    """
+    s = Stack()
+    balanced = True
+    index = 0
+
+    while index < len(data) and balanced:
+        symbol = data[index]
+
+        if symbol == "(":
+            s.push(symbol)
+        else:
+            balanced = False if s.is_empty() else s.pop()
+
+        index += 1
+
+    return True if balanced and s.is_empty() else False
+
+
 if __name__ == "__main__":
     doctest.testmod()
     reverse_string_with_stack("abc")
