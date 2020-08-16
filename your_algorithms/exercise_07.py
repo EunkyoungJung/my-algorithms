@@ -153,6 +153,46 @@ def convert_decimal_into_binary_with_stack(decimal_number: int) -> str:
     return str_aux
 
 
+"""
+스택으로 최소값 찾기
+"""
+
+
+class NodeWithMin(object):
+    def __init__(self, value=None, minimum=None):
+        self.value = value
+        self.minimum = minimum
+
+
+class StackMin(Stack):
+    def __init__(self):
+        self.items = []
+        self.minimum = None
+
+    def push(self, value):
+       if self.is_empty() or self.minimum > value: self.minimum = value
+       self.items.append(NodeWithMin(value, self.minimum))
+
+    def peek(self):
+       return self.items[-1] if self.items else "Stack is empty."
+
+    def peekMinimum(self):
+        return self.items[-1].minium if self.items else "Stack is empty."
+
+    def pop(self):
+       item = self.items.pop()
+       if item:
+           if item.value == self.minimum: self.minimum = self.peekMinimum()
+           return item.value
+       else:
+           print("Stack is empty.")
+
+    def __repr__(self):
+        aux = []
+        for i in self.items:
+            aux.append(i.value)
+        return repr(aux)
+
 if __name__ == "__main__":
     doctest.testmod()
     reverse_string_with_stack("abc")
