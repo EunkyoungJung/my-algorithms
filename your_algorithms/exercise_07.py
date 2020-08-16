@@ -18,6 +18,18 @@ class Stack(object):
         """
         self.items = []
 
+    def peek(self):
+        """
+        :return:
+        >>> s = Stack()
+        >>> s.peek()
+        'Stack is Empty'
+        >>> s.items = [1, 2, 3]
+        >>> s.peek()
+        3
+        """
+        return self.items[-1] if self.items else "Stack is Empty"
+
     def size(self) -> int:
         """
         :return: stack의 사이즈 리턴
@@ -62,15 +74,15 @@ class Stack(object):
         """
         self.items.append(item)
 
-    def _print_stack(self):
+    def __repr__(self):
         """
         :return:
         >>> s = Stack()
         >>> s.items = [1, 2, 3, 4, 5]
-        >>> s._print_stack()
-        [1, 2, 3, 4, 5]
+        >>> s.__repr__()
+        '[1, 2, 3, 4, 5]'
         """
-        print(self.items)
+        return repr(self.items)
 
 
 def reverse_string_with_stack(line: str) -> str:
