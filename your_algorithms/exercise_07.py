@@ -193,9 +193,53 @@ class StackMin(Stack):
             aux.append(i.value)
         return repr(aux)
 
-if __name__ == "__main__":
-    doctest.testmod()
-    reverse_string_with_stack("abc")
-    convert_decimal_into_binary_with_stack(9)
+
+class SetOfStacks(Stack):
+    def __init__(self, capacity=4):
+        self.setofstacks = []
+        self.items = []
+        self.capacity = capacity
+
+    def push(self, value):
+        if self.size() >= self.capacity:
+            self.setofstacks.append(self.items)
+            self.items = []
+        self.items.append(value)
+
+    def pop(self):
+        value = self.items.pop()
+        if self.is_empty() and self.setofstacks:
+            self.items = self.setofstacks.pop()
+        return value
+
+    def sizeStack(self):
+        return len(self.setofstacks) * self.capacity + self.size()
+
+    def __repr__(self):
+        aux = []
+        for s in self.setofstacks:
+            aux.extend(s)
+        aux.extend(self.items)
+        return repr(aux)
+
+
+def test_set_of_stacks():
+    capacity = 5
+    stack = SetOfStacks(capacity)
+    assert(stack.is_empty() is True)
+    for i in range(10):
+        stack.push(i)
+    assert(stack.sizeStack() == 10)
+    assert(stack.peek() == 9)
+    assert(stack.pop() == 9)
+    assert(stack.peek() == 8)
+    assert(stack.is_empty() is False)
+
+
+print("hello")
+test_set_of_stacks()
+doctest.testmod()
+reverse_string_with_stack("abc")
+convert_decimal_into_binary_with_stack(9)
 
 
