@@ -166,18 +166,34 @@ class NodeWithMin(object):
 
 class StackMin(Stack):
     def __init__(self):
+        """
+        >>> s = StackMin()
+        >>> s.items
+        []
+        >>> s.minimum
+        """
         self.items = []
         self.minimum = None
 
     def push(self, value):
-       if self.is_empty() or self.minimum > value: self.minimum = value
-       self.items.append(NodeWithMin(value, self.minimum))
+        """
+        :param value:
+        :return:
+        >>> s = StackMin()
+        >>> s.push(1)
+        >>> s.items
+        1
+        >>> s.minimum
+        1
+        """
+        if self.is_empty() or self.minimum > value: self.minimum = value
+        self.items.append(NodeWithMin(value, self.minimum))
 
     def peek(self):
        return self.items[-1] if self.items else "Stack is empty."
 
     def peekMinimum(self):
-        return self.items[-1].minium if self.items else "Stack is empty."
+        return self.items[-1].minimum if self.items else "Stack is empty."
 
     def pop(self):
        item = self.items.pop()
@@ -197,5 +213,16 @@ if __name__ == "__main__":
     doctest.testmod()
     reverse_string_with_stack("abc")
     convert_decimal_into_binary_with_stack(9)
+    s = StackMin()
+    for i in range(10, 0, -1):
+        s.push(i)
+    s.size()
+    s.peek()
+    s.peekMinimum()
+    s.pop()
+    s.peek()
+    s.peekMinimum()
+    s.is_empty()
+    print(s)
 
 
