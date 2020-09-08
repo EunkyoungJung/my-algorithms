@@ -33,5 +33,9 @@ def selection_sort(seq):
     return seq
 
 
+def insertion_sort(seq):
+    pass
+
+
 if __name__ == "__main__":
     doctest.testmod()
