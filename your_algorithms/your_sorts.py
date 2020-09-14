@@ -255,7 +255,81 @@ def quick_sort_cache(seq):
     한 함수로 구현한다. (캐시 사용)
     :param seq:
     :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> quick_sort_cache(seq)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
     """
+    if len(seq) < 2:
+        return seq
+    pivot_idx = len(seq) // 2
+    pivot = seq[pivot_idx]
+
+    left = [x for i, x in enumerate(seq) if x <= pivot and i != pivot_idx]
+    right = [x for i, x in enumerate(seq) if x > pivot and i != pivot_idx]
+
+    return quick_sort_cache(left) + [pivot] + quick_sort_cache(right)
+
+
+def partition_devided(seq):
+    """
+    quick_sort_cache 함수를 두 함수로 나누어 구현(캐시 사용)
+    :param seq:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> partition_devided(seq)
+    ([2, 1, 0, 3, 2], 3, [5, 6, 8, 5, 6])
+    """
+    pivot, seq = seq[0], seq[1:]
+    left, right = [], []
+    left = [x for x in seq if x <= pivot]
+    right = [x for x in seq if x > pivot]
+    return left, pivot, right
+
+
+def quick_sort_cache_devided(seq):
+    """
+    :param seq:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> quick_sort_cache_devided(seq)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
+    """
+    if len(seq) < 2:
+        return seq
+    left, pivot, right = partition_devided(seq)
+    print(left, pivot, right)
+    return quick_sort_cache_devided(left) + [pivot] + quick_sort_cache_devided(right)
+
+
+def partition(seq, start, end):
+    """
+    두 함수로 나누어서 구현한다. (캐시 미사용)
+    :param seq:
+    :param start:
+    :param end:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> partition(seq, 0, len(seq)-1)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
+    """
+    pivot = seq[start]
+    left = start + 1
+    right = end
+    done = False
+
+    while not done:
+        while left <= right and seq[left] <= pivot:
+            left += 1
+        while left <= right and pivot < seq[right]:
+            right -= 1
+        if right < left:
+            done = True
+        else:
+            seq[left], seq[right] = seq[right], seq[left]
+    seq[start], seq[right] = seq[right], seq[left]
+    return right
+
+
 
 
 if __name__ == "__main__":
