@@ -1,6 +1,7 @@
 
 
 import doctest
+import heapq
 from collections import defaultdict
 
 
@@ -297,21 +298,10 @@ def quick_sort_cache_devided(seq):
     if len(seq) < 2:
         return seq
     left, pivot, right = partition_devided(seq)
-    print(left, pivot, right)
     return quick_sort_cache_devided(left) + [pivot] + quick_sort_cache_devided(right)
 
 
 def partition(seq, start, end):
-    """
-    두 함수로 나누어서 구현한다. (캐시 미사용)
-    :param seq:
-    :param start:
-    :param end:
-    :return:
-    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
-    >>> partition(seq, 0, len(seq)-1)
-    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
-    """
     pivot = seq[start]
     left = start + 1
     right = end
@@ -326,10 +316,49 @@ def partition(seq, start, end):
             done = True
         else:
             seq[left], seq[right] = seq[right], seq[left]
-    seq[start], seq[right] = seq[right], seq[left]
+    seq[start], seq[right] = seq[right], seq[start]
     return right
 
 
+def quick_sort(seq, start, end):
+    """
+    :param seq:
+    :param start:
+    :param end:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> quick_sort(seq, 0, len(seq)-1)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
+    """
+    if start < end:
+        pivot = partition(seq, start, end)
+        quick_sort(seq, start, pivot - 1)
+        quick_sort(seq, pivot + 1, end)
+    return seq
+
+
+# heap sort
+"""
+* 정렬되지 않은 영역이 힙이라는 점을 제외하면 선택 정렬과 비슷
+* 힙 정렬은 가장 큰(또는 작은) 요소를 찾을 때, 로그 선형의 시간복잡도를 가진다.
+* 힙에서 루트가 아닌 다른 모든 노드는 부모노드의 값보다 작은(또는 큰) 값을 갖는다.
+* 힙의 삽입 시간복잡도는 O(1)이다.
+* 힙 순서를 확인하는 데 드는 시간복잡도는 O(log n)이고, 힙을 순회하는 시간복잡도는 O(n)이다.
+"""
+
+
+def heap_sort1(seq):
+    """
+    :param seq:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> heap_sort1(seq)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
+    """
+    h = []
+    for value in seq:
+        heapq.heappush(h, value)
+    return [heapq.heappop(h) for i in range(len(h))]
 
 
 if __name__ == "__main__":
