@@ -361,5 +361,36 @@ def heap_sort1(seq):
     return [heapq.heappop(h) for i in range(len(h))]
 
 
+def heap_sort3(seq):
+    """
+    :param seq:
+    :return:
+    >>> seq = [3, 5, 2, 6, 8, 1, 0, 3, 5, 6, 2]
+    >>> heap_sort3(seq)
+    [0, 1, 2, 2, 3, 3, 5, 5, 6, 6, 8]
+    """
+    for start in range((len(seq)-2)//2, -1, -1):
+        shiftdown(seq, start, len(seq)-1)
+    for end in range(len(seq)-1, 0, -1):
+        seq[end], seq[0] = seq[0], seq[end]
+        shiftdown(seq, 0, end - 1)
+    return seq
+
+
+def shiftdown(seq, start, end):
+    root = start
+    while True:
+        child = root * 2 + 1
+        if child > end:
+            break
+        if child + 1 <= end and seq[child] < seq[child + 1]:
+            child += 1
+        if seq[root] < seq[child]:
+            seq[root], seq[child] = seq[child], seq[root]
+            root = child
+        else:
+            break
+
+
 if __name__ == "__main__":
     doctest.testmod()
