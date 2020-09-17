@@ -2,6 +2,7 @@
 
 import doctest
 import heapq
+import random
 from collections import defaultdict
 
 
@@ -390,6 +391,67 @@ def shiftdown(seq, start, end):
             root = child
         else:
             break
+
+
+def findNLargestNumbers(seq, n):
+    """"
+    >>> seq = [1, 2, 3, 4, 5, 6]
+    >>> findNLargestNumbers(seq, 3)
+    [6, 5, 4]
+    """
+    seq.sort()
+    return seq[len(seq):len(seq)-n-1:-1]
+
+
+def swap(seq, x, y):
+    seq[x], seq[y] = seq[y], seq[x]
+
+
+def quick_select(seq, k, left=None, right=None):
+    left = left or 0
+    right = right or len(seq) - 1
+    ipivot = random.randint(left, right)
+    pivot = seq[ipivot]
+
+    # 피벗을 정렬 범위 밖으로 이동한다
+    swap(seq, ipivot, right)
+    swapIndex, i = left, left
+    while i < right:
+        if seq[i] < pivot:
+            swap(seq, i, swapIndex)
+            swapIndex += 1
+        i += 1
+
+    # 피벗의 위치를 확정한다
+    swap(seq, right, swapIndex)
+    # 피벗 위치를 확인한다
+    rank = len(seq) - swapIndex
+    if k == rank:
+        return seq[swapIndex]
+    elif k < rank:
+        return quick_select(seq, k, left=swapIndex+1, right=right)
+    else:
+        return quick_select(seq, k, left=left, right=swapIndex-1)
+
+
+def find_k_largest_seq_quickselect(seq, k):
+    """
+    :param seq:
+    :param k:
+    :return:
+    >>> seq = [3, 10, 4, 5, 1, 8, 9, 11, 5]
+    >>> find_k_largest_seq_quickselect(seq, 3)
+    [9, 10, 11]
+    """
+    # k 번째로 큰 값을 찾느다
+    kth_largest = quick_select(seq, k)
+
+    # k번째보다 큰 값을 지정한다
+    result = []
+    for item in seq:
+        if item >= kth_largest:
+            result.append(item)
+    return result
 
 
 if __name__ == "__main__":
