@@ -77,6 +77,40 @@ class DoubleLinkedList(object):
         self.head = None
         self.tail = self.head
 
+    def insert_before(self, data, before_data):
+        if not self.head:
+            self.add(data)
+            return True
+
+        new_node = Node(data)
+        node = self.tail
+        while node.data != before_data:
+            node = node.prev
+            if node is None:
+                return False
+        new_node.next = node
+        before_new = node.prev
+        before_new.next = new_node
+        return True
+
+    def insert_after(self, data, after_data):
+        if not self.head:
+            self.add(data)
+            return True
+
+        new_node = Node(data)
+        node = self.head
+        while node.data != after_data:
+            node = node.next
+            if node is None:
+                return False
+        new_node.next = node
+        new_node.prev = node.prev
+        node.prev = new_node
+        if new_node.next is None:
+            self.tail = new_node
+        return True
+
     def add(self, data):
         new_node = Node(data)
         if self.head and self.tail:
