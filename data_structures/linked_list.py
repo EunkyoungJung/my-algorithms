@@ -75,7 +75,7 @@ class SingleLinkedList(object):
 class DoubleLinkedList(object):
     def __init__(self):
         self.head = None
-        self.tail = None
+        self.tail = self.head
 
     def add(self, data):
         new_node = Node(data)
@@ -88,20 +88,25 @@ class DoubleLinkedList(object):
             self.tail = new_node
         else:
             self.head = new_node
-            self.tail = new_node
+            self.tail = self.head
 
     def delete(self, data):
         node = self.head
         if not node:
             return None
         if self.head.data == data:
-            self.head = self.head.next
+            self.head, self.head.next.prev = self.head.next, None
             return data
-        while node.next:
-            if node.next.data == data:
-                node.next = node.next.next
+        while node:
+            if node.data == data:
+                if node.next:
+                    node.next.prev, node.prev.next = node.prev, node.next
+                else:
+                    self.tail = node.prev
+                    self.tail.next = None
                 return data
             node = node.next
+        return None
 
     def desc(self):
         node = self.head
@@ -110,14 +115,27 @@ class DoubleLinkedList(object):
             items.append(node.data)
             node = node.next
         print(', '.join([str(x) for x in items]))
+        # print(f"head: ${self.head.data}, tail: ${self.tail.data}")
 
-    def search_node(self, data):
+    def search_node(self, data, reverse=False):
         node = self.head
-        while node:
-            if node.data == data:
-                return node
-            node = node.next
+        if not node:
+            return None
 
+        if reverse:
+            node = self.tail
+            while node:
+                if node.data == data:
+                    return node
+                node = node.prev
+            return None
+        else:
+            node = self.head
+            while node:
+                if node.data == data:
+                    return node
+                node = node.next
+            return None
 
 
 # FIFO Linked List
@@ -127,10 +145,21 @@ class LinkedListFIFO(object):
 
 
 if __name__ == "__main__":
-    ll = SingleLinkedList()
+    # ll = SingleLinkedList()
+    # for i in range(1, 9):
+    #     ll.add(i)
+    # ll.desc()
+    # ll.delete(8)
+    # ll.desc()
+    # print(ll.search_node(5).data)
+
+    ll = DoubleLinkedList()
     for i in range(1, 9):
         ll.add(i)
     ll.desc()
-    ll.delete(8)
+    print(f"삭제 1: ${ll.delete(1)}")
+    ll.desc()
+    print(f"삭제 8: ${ll.delete(8)}")
     ll.desc()
     print(ll.search_node(5).data)
+    print(ll.search_node(5, reverse=True).data)
