@@ -22,14 +22,14 @@
 # 노드(node) : 데이터 저장 단위 (데이터값, 포인터)로 구성
 # 포인터(pointer) : 각 노드 안에서, 다음이나 이전의 노드와의 연결 정보를 가지고 있는 공간
 class Node(object):
-    def __init__(self, data, next=None, prev=None):
+    def __init__(self, data,  prev=None, next=None):
+        self.prev = prev
         self.data = data
         self.next = next
-        self.prev = prev
 
 
 # Linked List
-class LinkedList(object):
+class SingleLinkedList(object):
     def __init__(self):
         self.head = None
 
@@ -45,17 +45,79 @@ class LinkedList(object):
 
     def delete(self, data):
         node = self.head
-        while node:
-            if node.data == data:
-                node.next = node.next.next if node.next.next else None
+        if not node:
+            return None
+        if self.head.data == data:
+            self.head = self.head.next
+            return data
+        while node.next:
+            if node.next.data == data:
+                node.next = node.next.next
+                return data
             node = node.next
 
     def desc(self):
         node = self.head
+        items = []
         while node:
-            print(node.data, end=', ')
+            items.append(node.data)
             node = node.next
-        print()
+        print(', '.join([str(x) for x in items]))
+
+    def search_node(self, data):
+        node = self.head
+        while node:
+            if node.data == data:
+                return node
+            node = node.next
+
+
+class DoubleLinkedList(object):
+    def __init__(self):
+        self.head = None
+        self.tail = None
+
+    def add(self, data):
+        new_node = Node(data)
+        if self.head and self.tail:
+            node = self.head
+            while node.next:
+                node = node.next
+            node.next = new_node
+            new_node.prev = node
+            self.tail = new_node
+        else:
+            self.head = new_node
+            self.tail = new_node
+
+    def delete(self, data):
+        node = self.head
+        if not node:
+            return None
+        if self.head.data == data:
+            self.head = self.head.next
+            return data
+        while node.next:
+            if node.next.data == data:
+                node.next = node.next.next
+                return data
+            node = node.next
+
+    def desc(self):
+        node = self.head
+        items = []
+        while node:
+            items.append(node.data)
+            node = node.next
+        print(', '.join([str(x) for x in items]))
+
+    def search_node(self, data):
+        node = self.head
+        while node:
+            if node.data == data:
+                return node
+            node = node.next
+
 
 
 # FIFO Linked List
@@ -65,9 +127,10 @@ class LinkedListFIFO(object):
 
 
 if __name__ == "__main__":
-    ll = LinkedList()
-    for i in range(1, 10):
+    ll = SingleLinkedList()
+    for i in range(1, 9):
         ll.add(i)
     ll.desc()
-    ll.delete(3)
+    ll.delete(8)
     ll.desc()
+    print(ll.search_node(5).data)
